@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour, Item
 {
     private int hp;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour, Item
     public Status status, nextStatus;
     public int statusDuration, nextDuration; 
     public Usable item;
+    public bool isReady = false;
 
 
     // Start is called before the first frame update
