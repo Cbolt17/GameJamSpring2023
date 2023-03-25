@@ -29,15 +29,10 @@ public class Client : NetworkBehaviour
     {
         if (worldManager.allResponsesIn)
             player.isReady = false;
-        if (!worldManager.allResponsesIn && !player.isReady && !peeking)
+        if (!worldManager.allResponsesIn && !player.isReady && !choosingUI.activeSelf && !peeking)
         {
             ActivateChoosingUI();
         }
-        else if(choosingUI.activeSelf)
-        {
-            DeactivateUI();
-        }
-
     }
 
     public override void OnNetworkSpawn()
