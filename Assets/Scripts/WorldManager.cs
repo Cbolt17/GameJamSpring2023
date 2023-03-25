@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+using Enums;
+
 public class WorldManager : MonoBehaviour
 {
+    //ID, Damage, Type, Range, Name, Description, Statuseffect, StatusDuration
+    public string[,] itemTemplates = new string[,] {
+        { "1", "15", "OFFENSE", "MELEE", "Sword", "A cool-looking sword", "NORMAL", "1" },
+        { "2", "0", "DEFENSE", "MELEE", "Frying Pan", "A cool-looking frying pan", "DEFNEDED", "1" }
+    };
+
     public static WorldManager instance;
 
     public GameObject combatCircle;
     public List<Player> players = new List<Player>();
+    public static List<Item>[] items = new List<Item>[(int) Type.num_types];
 
     public bool allResponsesIn = true;
     public int responsesRemaining = 0;
 
     public bool canJoin = true;
-    public float decisionTime = 30f;
-    public float remainingDecisionTime = 0f;
-    public int maxNumPlayers;
-    public int roundStage = 0; //Round stage 0: rounds not going; Round stage 1: players selecting items; round stage 2: animations
-    public float animationTime = 1f;
+    public int decisionTime;
+    public int numPlayers;
 
     public void Awake()
     {
@@ -27,33 +33,22 @@ public class WorldManager : MonoBehaviour
         instance = this;
     }
 
-    private void Update()
+    void Start()
     {
-        if (roundStage == 1)
-        {
-            remainingDecisionTime -= Time.deltaTime;
-            if (allResponsesIn || remainingDecisionTime < 0)
-            {
-                roundStage = 2;
-                StartCoroutine(StartAnimations());
-            }
-        }
+
     }
 
     public void StartGame()
     {
         canJoin = false;
         allResponsesIn = false;
-        responsesRemaining = players.Count;
-        remainingDecisionTime = decisionTime;
-        roundStage = 1;
     }
 
     private IEnumerator StartAnimations()
     {
         for(int i = 0; i < players.Count; i++)
         {
-            yield return StartCoroutine(players[i].TakeTurn());
+            yield return StartCoroutine(takeTurn(players[i]));
         }
     }
 
@@ -70,5 +65,34 @@ public class WorldManager : MonoBehaviour
         {
             players[i].transform.position = (Vector2)(Quaternion.Euler(0, 0, degreesBetweenPlayers * i) * Vector2.right) * radius;
         }
+    }
+
+    
+    private void initItems() {
+        
+    }
+
+    private IEnumerator takeTurn(Player p)
+    {
+        switch (p.status) {
+            case Status.NORMAL:
+                if (p.item != null) {
+                    Item i = (Item) p.item;
+                    if (i.range != Range.ALL) {
+                        Player[] t = { p.target };
+                        i.use(p, t);
+                    } else {
+                        i.use(p, players.ToArray());
+                    }
+                }
+                break;
+            case Status.MEDITATING:
+                p.takeDamage(-5);
+                break;
+            case Status.FROZEN:
+                break;
+        }
+
+        yield return new WaitForSeconds(1);
     }
 }

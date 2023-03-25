@@ -29,15 +29,10 @@ public class Client : NetworkBehaviour
     {
         if (worldManager.allResponsesIn)
             player.isReady = false;
-        if (!worldManager.allResponsesIn && !player.isReady && !peeking)
+        if (!worldManager.allResponsesIn && !player.isReady && !choosingUI.activeSelf && !peeking)
         {
             ActivateChoosingUI();
         }
-        else if(choosingUI.activeSelf)
-        {
-            DeactivateUI();
-        }
-
     }
 
     public override void OnNetworkSpawn()
@@ -54,12 +49,7 @@ public class Client : NetworkBehaviour
 
     public void ChooseItem(int type, int itemNum, int target)
     {
-        player.item = new item
-        {
-            type = type,
-            num = itemNum,
-            target = target
-        };
+        player.item = WorldManager.items[type][itemNum];
     }
 
     /////////Other UI functions

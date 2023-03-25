@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Enums;
 
-public class Player : MonoBehaviour, Item
+
+public class Player : MonoBehaviour
 {
     private int hp;
-    private Player connections[];
+    List<Player> connections;
 
     public Player target;
     public Status status, nextStatus;
-    public int statusDuration, nextDuration; 
+    public float statusDuration, nextDuration;
+    public Tuple<Type, int> itemID;
     public Usable item;
     public bool isReady = false;
 
@@ -27,17 +30,18 @@ public class Player : MonoBehaviour, Item
         
     }
 
-    void takeDamage(int x)
+    public void takeDamage(int x)
     {
         this.hp -= x;
     }
+    
+    public List<Player> getConnections()
+    {
+        return connections;
+    }
 
-
-}
-
-public enum Status
-{
-    NEUTRAL,
-    FROZEN,
-    MEDITATING
+    public int getHP()
+    {
+        return hp;
+    }
 }

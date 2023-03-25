@@ -32,6 +32,3 @@ public class WorldManagerNetwork : NetworkBehaviour
         }
     }
 }
-
-
-//https://www.youtube.com/watch?v=fdkvm21Y0xE just a link for Cole's convienience;
