@@ -2,47 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+
+public class Player : MonoBehaviour, Item
 {
+    private int hp;
+    private Player connections[];
+
+    public Player target;
+    public Status status, nextStatus;
+    public int statusDuration, nextDuration; 
+    public Usable item;
     public bool isReady = false;
-    public item item;
 
-    private WorldManager worldManager;
 
+    // Start is called before the first frame update
     void Start()
     {
-        //You can ignore this (but keep it)
-        worldManager = WorldManager.instance;
-        if(worldManager.canJoin)
-        {
-            worldManager.players.Add(this);
-            worldManager.PlayerAdded();
-        }
-        else
-        {
-            Application.Quit();
-        }
+        
     }
 
-    /// <summary>
-    /// Function that does stuff based on item. Yield return new WaitForSeconds(1f) 
-    /// makes it so that the function waits 1 sec before resuming at the next line.
-    /// 1 second is just my estimate of the animation for a single person's turn,
-    /// probably gonna be less though
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator TakeTurn()
+    // Update is called once per frame
+    void Update()
     {
-
-
-        yield return new WaitForSeconds(1f);
+        
     }
+
+    void takeDamage(int x)
+    {
+        this.hp -= x;
+    }
+
+
 }
 
-[System.Serializable]
-public struct item
+public enum Status
 {
-    public int target;
-    public int type;
-    public int num;
+    NEUTRAL,
+    FROZEN,
+    MEDITATING
 }
