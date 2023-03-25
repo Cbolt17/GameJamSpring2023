@@ -6,57 +6,12 @@ using Enums;
 
 public class Item : Usable
 {
-    private int id;
-    private int damage;
-    private Type type;
-    private Range range;
-
-
     Item(int id, int dmg, Type t, Range r, string n, string desc, Status s, float dur)
     {
         this.id = id;
         this.damage = dmg;
         this.type = t;
         this.range = r;
-        super(n, desc, s, dur);
-    }
-
-    public bool use(Player src, Player[] trg)
-    {
-        switch (range) {
-            case Range.SELF:
-                super.use(src, trg[0], Range.SELF);
-                break;
-            case Range.Melee:
-            case Range.SINGLE_TARGET:
-                super.use(src, trg[0], Range.SINGLE_TARGET);
-                break;
-            case Range.MULTI_TARGET:
-            case Range.BROADCAST:
-                foreach (Player p in trg) {
-                    super.use(src, p, Range.MULTI_TARGET);
-                }
-                break;
-            case Range.ALL:
-                super.use(src, trg[0], Range.SELF);
-                foreach (Player p in trg) {
-                    super.use(src, p, Range.ALL);
-                }
-        }
-    }
-}
-
-public abstract class Usable
-{
-    public string name;
-    public string desc;
-    public Status statusEffect;
-    public float statusDuration;
-    public static int i;
-
-
-    Usable(string n, string desc, Status s, float dur)
-    {
         this.name = n;
         this.desc = desc;
         this.statusEffect = s;
@@ -64,8 +19,49 @@ public abstract class Usable
         i += 1;
     }
 
+    public void use(Player src, Player[] trg)
+    {
+        switch (range) {
+            case Range.SELF:
+                use(src, trg[0], Range.SELF);
+                break;
+            case Range.Melee:
+            case Range.SINGLE_TARGET:
+                use(src, trg[0], Range.SINGLE_TARGET);
+                break;
+            case Range.MULTI_TARGET:
+            case Range.BROADCAST:
+                foreach (Player p in trg) {
+                    use(src, p, Range.MULTI_TARGET);
+                }
+                break;
+            case Range.ALL:
+                use(src, trg[0], Range.SELF);
+                foreach (Player p in trg) {
+                    use(src, p, Range.ALL);
+                }
+                break;
+        }
+    }
+}
 
-    public bool use(Player source, Player target, Range r)
+public abstract class Usable
+{
+    protected int id;
+
+    public int damage;
+    public Type type;
+    public Range range;
+    public string name;
+    public string desc;
+    public Status statusEffect;
+    public float statusDuration;
+    public static int i;
+
+
+    public int getID() { return id; }
+
+    public bool use(Player src, Player trg, Range r)
     {
         if (r == Range.SELF) {
             src.takeDamage(damage);

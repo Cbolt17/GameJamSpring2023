@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
 
     public Player target;
     public Status status, nextStatus;
-    public int statusDuration, nextDuration; 
+    public float statusDuration, nextDuration;
+    public Tuple<Type, int> itemID;
     public Usable item;
     public bool isReady = false;
 

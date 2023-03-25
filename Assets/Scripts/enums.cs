@@ -6,9 +6,11 @@ namespace Enums
 {
     public enum Status
     {
-        NEUTRAL,
+        NORMAL,
         FROZEN,
-        MEDITATING
+        MEDITATING,
+        DEFENDED,
+        num_statuses
     };
 
     public enum Range
@@ -18,7 +20,8 @@ namespace Enums
         SINGLE_TARGET,
         MULTI_TARGET,
         BROADCAST,
-        ALL
+        ALL,
+        num_ranges
     };
 
     public enum Type
@@ -26,6 +29,6 @@ namespace Enums
         OFFENSE,
         DEFENSE,
         SPECIAL,
-        LAZER
+        num_types
     };
 }

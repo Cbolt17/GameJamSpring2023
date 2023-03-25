@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+using Enums;
+
 public class PlayerNetwork : NetworkBehaviour
 {
     public NetworkVariable<bool> isReady = new NetworkVariable<bool>(writePerm: NetworkVariableWritePermission.Owner);
-    public NetworkVariable<int> itemType = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<Type> itemType = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> itemNum = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
-    public NetworkVariable<int> itemTarget = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
 
     private Player player;
 
@@ -24,12 +25,7 @@ public class PlayerNetwork : NetworkBehaviour
             player.isReady = isReady.Value;
             if(player.isReady)
             {
-                player.item = new item
-                {
-                    type = itemType.Value,
-                    num = itemNum.Value,
-                    target = itemTarget.Value
-                };
+                player.itemID = (Tuple<Type, int>) { itemType, itemNum };
             }
         }
         else

@@ -8,16 +8,16 @@ using Enums;
 public class WorldManager : MonoBehaviour
 {
     //ID, Damage, Type, Range, Name, Description, Statuseffect, StatusDuration
-    public string[][8] itemtemplate
-    {
-        { "1", "15", "OFFENSE", "MELEE", "Sword", "A cool-looking sword", "NORMAL", "1" }
-    }
+    public string[,] itemTemplates = new string[,] {
+        { "1", "15", "OFFENSE", "MELEE", "Sword", "A cool-looking sword", "NORMAL", "1" },
+        { "2", "0", "DEFENSE", "MELEE", "Frying Pan", "A cool-looking frying pan", "DEFNEDED", "1" }
+    };
 
     public static WorldManager instance;
 
     public GameObject combatCircle;
     public List<Player> players = new List<Player>();
-    public static List<Item> items = new List<Item>();
+    public static List<Item>[] items = new List<Item>[(int) Type.num_types];
 
     public bool allResponsesIn = true;
     public int responsesRemaining = 0;
@@ -44,8 +44,6 @@ public class WorldManager : MonoBehaviour
         allResponsesIn = false;
     }
 
-<<<<<<< Updated upstream
-=======
     private IEnumerator StartAnimations()
     {
         for(int i = 0; i < players.Count; i++)
@@ -57,7 +55,6 @@ public class WorldManager : MonoBehaviour
     /// <summary>
     /// Tells worldmanager to rearrange players around the combat circle
     /// </summary>
->>>>>>> Stashed changes
     public void PlayerAdded()
     {
         float degreesBetweenPlayers = 360f / players.Count;
@@ -67,15 +64,11 @@ public class WorldManager : MonoBehaviour
         for(int i = 0; i < players.Count; i++)
         {
             players[i].transform.position = (Vector2)(Quaternion.Euler(0, 0, degreesBetweenPlayers * i) * Vector2.right) * radius;
-            players[i].mag = radius;
-            players[i].angle = degreesBetweenPlayers * i;
         }
     }
-<<<<<<< Updated upstream
 
-=======
     
-    private initItems() {
+    private void initItems() {
         
     }
 
@@ -84,12 +77,12 @@ public class WorldManager : MonoBehaviour
         switch (p.status) {
             case Status.NORMAL:
                 if (p.item != null) {
-                    Item i = p.item;
-                    if (i.range != Range.All) {
+                    Item i = (Item) p.item;
+                    if (i.range != Range.ALL) {
                         Player[] t = { p.target };
                         i.use(p, t);
                     } else {
-                        i.use(p, players.ToArray);
+                        i.use(p, players.ToArray());
                     }
                 }
                 break;
@@ -100,7 +93,6 @@ public class WorldManager : MonoBehaviour
                 break;
         }
 
-        yield return new WaitForSeconds();
+        yield return new WaitForSeconds(1);
     }
->>>>>>> Stashed changes
 }
