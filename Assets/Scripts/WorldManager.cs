@@ -10,7 +10,7 @@ public class WorldManager : MonoBehaviour
     //ID, Damage, Type, Range, Name, Description, Statuseffect, StatusDuration
     public string[,] itemTemplates = new string[,] {
         { "1", "15", "OFFENSE", "MELEE", "Sword", "A cool-looking sword", "NORMAL", "1" },
-        { "2", "0", "DEFENSE", "MELEE", "Frying Pan", "A cool-looking frying pan", "DEFNEDED", "1" }
+        { "2", "0", "DEFENSE", "MELEE", "Frying Pan", "A cool-looking frying pan", "DEFLECTING", "1" }
     };
 
     public static WorldManager instance;
@@ -69,7 +69,13 @@ public class WorldManager : MonoBehaviour
 
     
     private void initItems() {
-        
+        foreach (string[] itm in itemTemplates) {
+            Item i = new Item(Int32.Parse(itm[0]), Int32.Parse(itm[1]), 
+                (Type) Enum.Parse(typeof(Type), itm[2]), (Range) Enum.Parse(typeof(Range), itm[3]),
+                itm[4], itm[5],
+                (Status) Enum.Parse(typeof(Status), itm[6]), Int32.Parse(itm[7]));
+            items[i.type].add(i);
+        }
     }
 
     private IEnumerator takeTurn(Player p)

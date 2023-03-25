@@ -10,6 +10,7 @@ namespace Enums
         FROZEN,
         MEDITATING,
         DEFENDED,
+        DEFLECTING,
         num_statuses
     };
 
