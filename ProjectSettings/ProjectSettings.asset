@@ -676,11 +676,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 7429cb6d-41fe-4d6a-b5fd-0f889c0d9bd5
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: GameJamSpring2023
+  organizationId: yellobolt
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
