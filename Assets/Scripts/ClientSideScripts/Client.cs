@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,12 +10,14 @@ public class Client : NetworkBehaviour
     public GameObject choiceButtonUI;
 
     private WorldManager worldManager;
-    private bool peeking = false;
+    private MenuButtons menuButtons;
+    private bool choosing = false;
 
     private void Start()
     {
         if (!IsOwner) Destroy(this);
         worldManager = WorldManager.instance;
+        menuButtons = MenuButtons.instance;
         if (IsServer)
         {
             ActivateWaitingUI();
@@ -29,11 +29,17 @@ public class Client : NetworkBehaviour
     private void Update()
     {
         if (worldManager.allResponsesIn)
-            player.isReady = false;
-        if (!worldManager.allResponsesIn && !player.isReady && !choosingUI.activeSelf && !peeking)
         {
+            player.isReady = false;
+            choosing = false;
+        }
+        if (!worldManager.allResponsesIn && !player.isReady && !choosing)
+        {
+            choosing = true;
             ActivateChoosingUI();
         }
+        if (IsServer && worldManager.roundStage == 0 && worldManager.players.Count == worldManager.maxNumPlayers)
+            StartGame();
     }
 
     public override void OnNetworkSpawn()
@@ -46,28 +52,28 @@ public class Client : NetworkBehaviour
     {
         worldManager.StartGame();
         DeactivateUI();
+        DeactivateChoosingUI();
     }
 
     public void ChooseItem(int type, int itemNum, int target)
     {
-//        player.item = worldManager.items[type][itemNum];
+        Item[] items = worldManager.weapons;
+        switch (type)
+        {
+            case 0:
+                items = worldManager.weapons;
+                break;
+            case 1:
+                items = worldManager.defense;
+                break;
+            case 2:
+                items = worldManager.special;
+                break;
+        }
+        player.item = items[itemNum];
     }
 
     /////////Other UI functions
-
-    public void Peek()
-    {
-        peeking = true;
-        choosingUI.gameObject.SetActive(false);
-        choiceButtonUI.gameObject.SetActive(true);
-    }
-
-    public void UnPeek()
-    {
-        peeking = false;
-        choiceButtonUI.gameObject.SetActive(false);
-        choosingUI.gameObject.SetActive(true);
-    }
 
     public void ActivateWaitingUI()
     {
@@ -76,7 +82,13 @@ public class Client : NetworkBehaviour
 
     public void ActivateChoosingUI()
     {
-        choosingUI.SetActive(true);
+        menuButtons.itemOptions.SetActive(true);
+    }
+
+    public void DeactivateChoosingUI()
+    {
+        menuButtons.itemOptions.SetActive(false);
+        menuButtons.unPeekButton.SetActive(false);
     }
 
     public void ActivateSettingsUI()
@@ -85,9 +97,8 @@ public class Client : NetworkBehaviour
     }
 
     public void DeactivateUI()
-    {   
+    {
         waitingUI.SetActive(false);
-        choosingUI.SetActive(false);
     }
 
     public void DeactivateSettingsUI()

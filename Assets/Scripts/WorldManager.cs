@@ -5,7 +5,8 @@ using Unity.Netcode;
 using UnityEngine;
 
 using Enums;
-using System;
+using Unity.VisualScripting;
+using TMPro;
 
 public class WorldManager : MonoBehaviour
 {
@@ -16,22 +17,23 @@ public class WorldManager : MonoBehaviour
 
     public static WorldManager instance;
 
-    public GameObject combatCircle;
     public List<Player> players = new List<Player>();
-    public List<Item> offence;
-    public List<Item> defense;
-    public List<Item> special;
+    public Item[] weapons;
+    public Item[] defense;
+    public Item[] special;
+    public TextMeshProUGUI joinCode;
 
     public bool allResponsesIn = true;
     public int responsesRemaining = 0;
 
-
     public bool canJoin = true;
     public float decisionTime = 30f;
     public float responseTimeRemaining = 0f;
-    public int maxNumPlayers;
-    public int roundStage = 0; //Round stage 0: rounds not going; Round stage 1: players selecting items; round stage 2: animations
+    public int maxNumPlayers = 5;
+    public int roundStage = 0; //Round stage 0: players selecting items; round stage 1: animations
     public float animationTime = 1f;
+
+    public float volume = 0.75f;
 
     public void Awake()
     {
@@ -47,9 +49,9 @@ public class WorldManager : MonoBehaviour
 
     private void Update()
     {
-
         if (roundStage == 1)
         {
+            joinCode.text = "";
             responseTimeRemaining -= Time.deltaTime;
             if (allResponsesIn || responseTimeRemaining < 0)
             {
@@ -74,6 +76,7 @@ public class WorldManager : MonoBehaviour
         {
             yield return StartCoroutine(takeTurn(players[i]));
         }
+        roundStage = 0;
     }
 
     /// <summary>
@@ -84,7 +87,6 @@ public class WorldManager : MonoBehaviour
         float degreesBetweenPlayers = 360f / players.Count;
         float diameter = players.Count * 1.5f;
         float radius = diameter / 2;
-        combatCircle.transform.localScale = new Vector2(diameter, diameter);
         for (int i = 0; i < players.Count; i++)
         {
             players[i].transform.position = (Vector2)(Quaternion.Euler(0, 0, degreesBetweenPlayers * i) * Vector2.right) * radius;
