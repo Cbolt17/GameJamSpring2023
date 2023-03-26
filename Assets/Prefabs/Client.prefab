@@ -2196,16 +2196,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8883847387424394007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78b1df0a8d0f0384486c27fc1b79973a, type: 3}
+  m_Script: {fileID: 11500000, guid: c460dedb57701db43908bf8abb1cbc75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isReady: 0
-  item:
-    target: 0
-    type: 0
-    num: 0
-  mag: 0
-  angle: 0
+  target: {fileID: 0}
+  status: 0
+  nextStatus: 0
+  statusDuration: 0
+  nextDuration: 0
 --- !u!114 &-3229859143803341607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2223,8 +2222,6 @@ MonoBehaviour:
   itemType:
     m_InternalValue: 0
   itemNum:
-    m_InternalValue: 0
-  itemTarget:
     m_InternalValue: 0
 --- !u!114 &3883361843560111160
 MonoBehaviour:
