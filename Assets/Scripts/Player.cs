@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Enums;
-using static UnityEditor.Progress;
 
 
 public class Player : MonoBehaviour
@@ -35,20 +34,6 @@ public class Player : MonoBehaviour
         {
             Application.Quit();
         }
-    }
-
-    /// <summary>
-    /// Function that does stuff based on item. Yield return new WaitForSeconds(1f) 
-    /// makes it so that the function waits 1 sec before resuming at the next line.
-    /// 1 second is just my estimate of the animation for a single person's turn,
-    /// probably gonna be less though
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator TakeTurn()
-    {
-
-
-        yield return new WaitForSeconds(1f);
     }
 
     public void takeDamage(int x)

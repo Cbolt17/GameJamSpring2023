@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -34,6 +32,8 @@ public class Client : NetworkBehaviour
         {
             ActivateChoosingUI();
         }
+        if (IsServer && worldManager.roundStage == 0 && worldManager.players.Count == worldManager.maxNumPlayers)
+            StartGame();
     }
 
     public override void OnNetworkSpawn()
@@ -51,7 +51,7 @@ public class Client : NetworkBehaviour
     public void ChooseItem(int type, int itemNum, int target)
     {
         Item[] items = worldManager.weapons;
-        switch(type)
+        switch (type)
         {
             case 0:
                 items = worldManager.weapons;
@@ -98,7 +98,7 @@ public class Client : NetworkBehaviour
     }
 
     public void DeactivateUI()
-    {   
+    {
         waitingUI.SetActive(false);
         choosingUI.SetActive(false);
     }

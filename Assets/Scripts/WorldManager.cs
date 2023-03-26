@@ -5,6 +5,8 @@ using Unity.Netcode;
 using UnityEngine;
 
 using Enums;
+using Unity.VisualScripting;
+using TMPro;
 
 public class WorldManager : MonoBehaviour
 {
@@ -21,17 +23,19 @@ public class WorldManager : MonoBehaviour
     public Item[] weapons;
     public Item[] defense;
     public Item[] special;
+    public TextMeshProUGUI joinCode;
 
     public bool allResponsesIn = true;
     public int responsesRemaining = 0;
 
-
     public bool canJoin = true;
     public float decisionTime = 30f;
     public float responseTimeRemaining = 0f;
-    public int maxNumPlayers;
-    public int roundStage = 0; //Round stage 0: rounds not going; Round stage 1: players selecting items; round stage 2: animations
+    public int maxNumPlayers = 5;
+    public int roundStage = 0; //Round stage 0: players selecting items; round stage 1: animations
     public float animationTime = 1f;
+
+    public float volume = 0.75f;
 
     public void Awake()
     {
@@ -47,9 +51,9 @@ public class WorldManager : MonoBehaviour
 
     private void Update()
     {
-
         if (roundStage == 1)
         {
+            joinCode.text = "";
             responseTimeRemaining -= Time.deltaTime;
             if (allResponsesIn || responseTimeRemaining < 0)
             {
@@ -74,6 +78,7 @@ public class WorldManager : MonoBehaviour
         {
             yield return StartCoroutine(takeTurn(players[i]));
         }
+        roundStage = 0;
     }
 
     /// <summary>
