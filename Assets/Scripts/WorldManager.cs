@@ -17,10 +17,12 @@ public class WorldManager : MonoBehaviour
 
     public static WorldManager instance;
 
+    public GameObject drawPrefab;
+    public GameObject winnerPrefab;
     public List<Player> players = new List<Player>();
-    public Item[] weapons;
-    public Item[] defense;
-    public Item[] special;
+    public List<Item> weapons;
+    public List<Item> defense;
+    public List<Item> special;
     public TextMeshProUGUI joinCode;
 
     public bool allResponsesIn = true;
@@ -76,7 +78,40 @@ public class WorldManager : MonoBehaviour
         {
             yield return StartCoroutine(takeTurn(players[i]));
         }
-        roundStage = 0;
+        CheckForWinner();
+    }
+
+    private void CheckForWinner()
+    {
+        Player playerWithHealth = null;
+        int playersRemaining = players.Count;
+        for(int i = 0; i < players.Count; i++)
+        {
+            if (players[i].getHP() <= 0)
+            {
+                playersRemaining--;
+            }
+            else
+                playerWithHealth = players[i];
+        }
+        if (playersRemaining > 1)
+            roundStage = 0;
+        else
+            EndGame(playerWithHealth);
+            
+    }
+
+    private void EndGame(Player winner)
+    {
+        if(winner != null)
+        {
+            GameObject winnerSprite =  Instantiate(winnerPrefab);
+            winnerSprite.transform.position = winner.transform.position;
+        }
+        else
+        {
+            Instantiate(drawPrefab);
+        }
     }
 
     /// <summary>
@@ -95,7 +130,7 @@ public class WorldManager : MonoBehaviour
 
 
     private void initItems()
-    {
+    {/*
         foreach (string[] itm in itemTemplates)
         {
             Item i = new Item(Int32.Parse(itm[1]),
@@ -113,7 +148,7 @@ public class WorldManager : MonoBehaviour
                     special.Add(i);
                     break;
             }
-        }
+        }*/
     }
 
     private IEnumerator takeTurn(Player p)

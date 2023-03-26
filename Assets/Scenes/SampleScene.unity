@@ -502,8 +502,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -637,8 +637,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -908,8 +908,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -1966,32 +1966,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec21f7b5b8a3a5641982b2ec87a3c9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawPrefab: {fileID: 4148648526912895476, guid: f1680b2b6457b1e49b4d5da5a3e754be, type: 3}
+  winnerPrefab: {fileID: 7808750441546676411, guid: e7a145af91b438942bd71f7773cbad33, type: 3}
   players: []
-  offence:
-  - damage: 15
-    type: 0
-    range: 1
-    display: Sword
-    desc: -Cuts down your enemies in range\n\n\"Do you like my sword?\"
-    statusEffect: 0
-    statusDuration: 0
-    sprite: {fileID: 0}
-  - damage: 10
-    type: 0
-    range: 2
-    display: Kicknado
-    desc: -Delivers a powerful kick to all nearby players\n\nThe Chun-Lee Special
-    statusEffect: 0
-    statusDuration: 0
-    sprite: {fileID: 0}
-  - damage: 10
-    type: 0
-    range: 3
-    display: Snoipah
-    desc: -Single-target shot\n\n\"Give 'em a GOBFULL\"
-    statusEffect: 0
-    statusDuration: 0
-    sprite: {fileID: 0}
+  weapons: []
   defense:
   - damage: 0
     type: 1
@@ -1999,7 +1977,7 @@ MonoBehaviour:
     display: Sheild
     desc: -Defends you for 2 turns\n\n\"GET BEHIND ME\"
     statusEffect: 3
-    statusDuration: 2
+    statusDuration: 0
     sprite: {fileID: 0}
   - damage: 0
     type: 1
@@ -2007,9 +1985,10 @@ MonoBehaviour:
     display: Demo-pan
     desc: -Delfects any damage taken to a random target\n\n\"AAAAAagghagahrAGHRGAHAGHHAGAAAH\"
     statusEffect: 4
-    statusDuration: 1
+    statusDuration: 0
     sprite: {fileID: 0}
   special: []
+  joinCode: {fileID: 1189725897}
   allResponsesIn: 0
   responsesRemaining: 0
   canJoin: 1
@@ -2018,6 +1997,7 @@ MonoBehaviour:
   maxNumPlayers: 0
   roundStage: 0
   animationTime: 1
+  volume: 0.75
 --- !u!4 &701449905
 Transform:
   m_ObjectHideFlags: 0
@@ -2386,8 +2366,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2945,8 +2925,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3799,8 +3779,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -4258,8 +4238,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4393,8 +4373,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4818,8 +4798,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -5497,8 +5477,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5632,8 +5612,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5767,8 +5747,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

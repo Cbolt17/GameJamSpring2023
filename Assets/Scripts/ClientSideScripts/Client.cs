@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -57,7 +58,7 @@ public class Client : NetworkBehaviour
 
     public void ChooseItem(int type, int itemNum, int target)
     {
-        Item[] items = worldManager.weapons;
+        List<Item> items = worldManager.weapons;
         switch (type)
         {
             case 0:
@@ -82,6 +83,7 @@ public class Client : NetworkBehaviour
 
     public void ActivateChoosingUI()
     {
+        if (player.getHP() <= 0) return;
         menuButtons.itemOptions.SetActive(true);
     }
 
