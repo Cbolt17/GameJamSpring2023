@@ -23,6 +23,7 @@ public class Client : NetworkBehaviour
             ActivateWaitingUI();
             worldManager.GetComponent<WorldManagerNetwork>().isTheServer = true;
         }
+        player = GetComponent<Player>();
     }
 
     private void Update()
@@ -49,7 +50,7 @@ public class Client : NetworkBehaviour
 
     public void ChooseItem(int type, int itemNum, int target)
     {
-        player.item = WorldManager.items[type][itemNum];
+        player.item = worldManager.items[type][itemNum];
     }
 
     /////////Other UI functions
