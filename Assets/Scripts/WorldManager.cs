@@ -7,6 +7,7 @@ using UnityEngine;
 using Enums;
 using Unity.VisualScripting;
 using TMPro;
+using System;
 
 public class WorldManager : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class WorldManager : MonoBehaviour
     public int maxNumPlayers = 5;
     public int roundStage = 0; //Round stage 0: players selecting items; round stage 1: animations
     public float animationTime = 1f;
+    private float chordTimer = 2f;
+    //0 = menu
+    public AudioSource[] sounds;
 
     public float volume = 0.75f;
 
@@ -42,11 +46,13 @@ public class WorldManager : MonoBehaviour
         if (instance != null)
             return;
         instance = this;
+        sounds = GetComponents<AudioSource>();
+
     }
 
     void Start()
     {
-
+        sounds[0].Play();
     }
 
     private void Update()
@@ -55,11 +61,18 @@ public class WorldManager : MonoBehaviour
         {
             joinCode.text = "";
             responseTimeRemaining -= Time.deltaTime;
+            chordTimer -= Time.deltaTime;
+            if (chordTimer == 0)
+            {
+                sounds[1].Play();
+                chordTimer = 2f;
+            }
             if (allResponsesIn || responseTimeRemaining < 0)
             {
                 roundStage = 2;
                 StartCoroutine(StartAnimations());
             }
+            
         }
     }
 
@@ -139,7 +152,7 @@ public class WorldManager : MonoBehaviour
                 (Status)Enum.Parse(typeof(Status), itm[6]), Int32.Parse(itm[7]));
             switch (i.type) {
                 case Enums.Type.OFFENSE:
-                    offence.Add(i);
+                    weapons.Add(i);
                     break;
                 case Enums.Type.DEFENSE:
                     defense.Add(i);
