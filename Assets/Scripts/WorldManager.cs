@@ -7,6 +7,7 @@ using UnityEngine;
 using Enums;
 using Unity.VisualScripting;
 using TMPro;
+using System;
 
 public class WorldManager : MonoBehaviour
 {
@@ -139,7 +140,7 @@ public class WorldManager : MonoBehaviour
                 (Status)Enum.Parse(typeof(Status), itm[6]), Int32.Parse(itm[7]));
             switch (i.type) {
                 case Enums.Type.OFFENSE:
-                    offence.Add(i);
+                    weapons.Add(i);
                     break;
                 case Enums.Type.DEFENSE:
                     defense.Add(i);
