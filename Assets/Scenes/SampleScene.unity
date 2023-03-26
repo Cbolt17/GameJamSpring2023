@@ -915,6 +915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTheServer: 0
+  responseTimeRemaining:
+    m_InternalValue: 0
   allResponsesIn:
     m_InternalValue: 0
   responsesRemaining:
@@ -933,11 +935,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatCircle: {fileID: 1011022948}
   players: []
+  weapons: []
+  defense: []
+  special: []
   allResponsesIn: 0
   responsesRemaining: 0
   canJoin: 1
   decisionTime: 0
-  numPlayers: 0
+  responseTimeRemaining: 0
+  maxNumPlayers: 0
+  roundStage: 0
+  animationTime: 1
 --- !u!4 &701449905
 Transform:
   m_ObjectHideFlags: 0

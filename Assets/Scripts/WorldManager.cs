@@ -18,7 +18,9 @@ public class WorldManager : MonoBehaviour
 
     public GameObject combatCircle;
     public List<Player> players = new List<Player>();
-    public List<Item>[] items = new List<Item>[(int)Type.num_types];
+    public Item[] weapons;
+    public Item[] defense;
+    public Item[] special;
 
     public bool allResponsesIn = true;
     public int responsesRemaining = 0;

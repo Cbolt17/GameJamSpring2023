@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public Enums.Status status, nextStatus;
     public float statusDuration, nextDuration;
     public (Type, int) itemID;
-    public Usable item;
+    public Item item;
 
     private WorldManager worldManager;
 
