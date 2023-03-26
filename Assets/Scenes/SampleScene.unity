@@ -915,6 +915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTheServer: 0
+  responseTimeRemaining:
+    m_InternalValue: 0
   allResponsesIn:
     m_InternalValue: 0
   responsesRemaining:
@@ -933,11 +935,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatCircle: {fileID: 1011022948}
   players: []
+  offence:
+  - damage: 15
+    type: 0
+    range: 1
+    display: Sword
+    desc: -Cuts down your enemies in range\n\n\"Do you like my sword?\"
+    statusEffect: 0
+    statusDuration: 0
+    sprite: {fileID: 0}
+  - damage: 10
+    type: 0
+    range: 2
+    display: Kicknado
+    desc: -Delivers a powerful kick to all nearby players\n\nThe Chun-Lee Special
+    statusEffect: 0
+    statusDuration: 0
+    sprite: {fileID: 0}
+  - damage: 10
+    type: 0
+    range: 3
+    display: Snoipah
+    desc: -Single-target shot\n\n\"Give 'em a GOBFULL\"
+    statusEffect: 0
+    statusDuration: 0
+    sprite: {fileID: 0}
+  defense:
+  - damage: 0
+    type: 1
+    range: 0
+    display: Sheild
+    desc: -Defends you for 2 turns\n\n\"GET BEHIND ME\"
+    statusEffect: 3
+    statusDuration: 2
+    sprite: {fileID: 0}
+  - damage: 0
+    type: 1
+    range: 0
+    display: Demo-pan
+    desc: -Delfects any damage taken to a random target\n\n\"AAAAAagghagahrAGHRGAHAGHHAGAAAH\"
+    statusEffect: 4
+    statusDuration: 1
+    sprite: {fileID: 0}
+  special: []
   allResponsesIn: 0
   responsesRemaining: 0
   canJoin: 1
   decisionTime: 0
-  numPlayers: 0
+  responseTimeRemaining: 0
+  maxNumPlayers: 0
+  roundStage: 0
+  animationTime: 1
 --- !u!4 &701449905
 Transform:
   m_ObjectHideFlags: 0

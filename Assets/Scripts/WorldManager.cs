@@ -5,20 +5,22 @@ using Unity.Netcode;
 using UnityEngine;
 
 using Enums;
+using System;
 
 public class WorldManager : MonoBehaviour
 {
     //ID, Damage, Type, Range, Name, Description, Statuseffect, StatusDuration
-    public string[,] itemTemplates = new string[,] {
-        { "1", "15", "OFFENSE", "MELEE", "Sword", "A cool-looking sword", "NORMAL", "1" },
-        { "2", "0", "DEFENSE", "MELEE", "Frying Pan", "A cool-looking frying pan", "DEFNEDED", "1" }
+    public string[][] itemTemplates = new string[][] {
+
     };
 
     public static WorldManager instance;
 
     public GameObject combatCircle;
     public List<Player> players = new List<Player>();
-    public List<Item>[] items = new List<Item>[(int)Type.num_types];
+    public List<Item> offence;
+    public List<Item> defense;
+    public List<Item> special;
 
     public bool allResponsesIn = true;
     public int responsesRemaining = 0;
@@ -92,7 +94,24 @@ public class WorldManager : MonoBehaviour
 
     private void initItems()
     {
-
+        foreach (string[] itm in itemTemplates)
+        {
+            Item i = new Item(Int32.Parse(itm[1]),
+                (Enums.Type)Enum.Parse(typeof(Enums.Type), itm[2]), (Enums.Range)Enum.Parse(typeof(Enums.Range), itm[3]),
+                itm[4], itm[5],
+                (Status)Enum.Parse(typeof(Status), itm[6]), Int32.Parse(itm[7]));
+            switch (i.type) {
+                case Enums.Type.OFFENSE:
+                    offence.Add(i);
+                    break;
+                case Enums.Type.DEFENSE:
+                    defense.Add(i);
+                    break;
+                case Enums.Type.SPECIAL:
+                    special.Add(i);
+                    break;
+            }
+        }
     }
 
     private IEnumerator takeTurn(Player p)
@@ -103,7 +122,7 @@ public class WorldManager : MonoBehaviour
                 if (p.item != null)
                 {
                     Item i = (Item)p.item;
-                    if (i.range != Range.ALL)
+                    if (i.range != Enums.Range.ALL)
                     {
                         Player[] t = { p.target };
                         i.use(p, t);

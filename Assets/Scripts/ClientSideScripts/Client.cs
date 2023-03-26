@@ -50,7 +50,7 @@ public class Client : NetworkBehaviour
 
     public void ChooseItem(int type, int itemNum, int target)
     {
-        player.item = worldManager.items[type][itemNum];
+//        player.item = worldManager.items[type][itemNum];
     }
 
     /////////Other UI functions

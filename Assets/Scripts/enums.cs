@@ -11,13 +11,15 @@ namespace Enums
         MEDITATING,
         DEFENDED,
         DEFLECTING,
+        VULNERABLE,
         num_statuses
     };
 
     public enum Range
     {
         SELF,
-        Melee,
+        MELEE,
+        MELEE_B,
         SINGLE_TARGET,
         MULTI_TARGET,
         BROADCAST,
