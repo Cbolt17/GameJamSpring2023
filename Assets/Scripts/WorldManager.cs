@@ -7,6 +7,7 @@ using UnityEngine;
 using Enums;
 using Unity.VisualScripting;
 using TMPro;
+using System;
 using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
@@ -53,7 +54,7 @@ public class WorldManager : MonoBehaviour
 
     void Start()
     {
-
+        sounds[0].Play();
     }
 
     private void Update()
@@ -92,9 +93,7 @@ public class WorldManager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             yield return StartCoroutine(takeTurn(players[i]));
-            Debug.Log("Turn: " + i);
         }
-        Debug.Log("Done turns");
         CheckForWinner();
     }
 
@@ -111,16 +110,11 @@ public class WorldManager : MonoBehaviour
             else
                 playerWithHealth = players[i];
         }
-        Debug.Log(playersRemaining);
         if (playersRemaining > 1)
-        {
-            roundStage = 1;
-            responseTimeRemaining = decisionTime;
-        }
+            roundStage = 0;
         else
             EndGame(playerWithHealth);
-
-        Debug.Log("Stage: " + roundStage + ", time: " + responseTimeRemaining);
+            
     }
 
     private void EndGame(Player winner)
@@ -190,7 +184,7 @@ public class WorldManager : MonoBehaviour
                     if (i != null) i = weapons[0];
                     if (i.range != Enums.Range.ALL)
                     {
-                        Player[] t = { p.connections[0] };
+                        Player[] t = { p.target };
                         i.use(p, t);
                     }
                     else
@@ -207,5 +201,4 @@ public class WorldManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1);
     }
-
 }
