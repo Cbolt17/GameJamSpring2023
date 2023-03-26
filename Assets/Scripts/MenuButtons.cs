@@ -158,13 +158,11 @@ public class MenuButtons : MonoBehaviour
     public void ToggleItems()
     {
         itemOptions.SetActive(false);
-        unPeekButton.SetActive(true);
     }
     
     public void TogglePeek()
     {
         unPeekButton.SetActive(false);
-        itemOptions.SetActive(true);
     }
 
     public void SetPlayerItemWeapon(int itemNum)

@@ -8,6 +8,7 @@ using Enums;
 using Unity.VisualScripting;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class WorldManager : MonoBehaviour
     public List<Item> defense;
     public List<Item> special;
     public TextMeshProUGUI joinCode;
+    public GameObject quitButton;
 
     public bool allResponsesIn = true;
     public int responsesRemaining = 0;
@@ -67,6 +69,7 @@ public class WorldManager : MonoBehaviour
                 sounds[1].Play();
                 chordTimer = 2f;
             }
+            joinCode.text = "" + (int)Mathf.Floor(Mathf.Max(responseTimeRemaining, 0));
             if (allResponsesIn || responseTimeRemaining < 0)
             {
                 roundStage = 2;
@@ -125,6 +128,12 @@ public class WorldManager : MonoBehaviour
         {
             Instantiate(drawPrefab);
         }
+        quitButton.SetActive(true);
+    }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>
@@ -172,6 +181,7 @@ public class WorldManager : MonoBehaviour
                 if (p.item != null)
                 {
                     Item i = (Item)p.item;
+                    if (i != null) i = weapons[0];
                     if (i.range != Enums.Range.ALL)
                     {
                         Player[] t = { p.target };

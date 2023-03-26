@@ -35,6 +35,11 @@ public class Client : NetworkBehaviour
             player.isReady = false;
             choosing = false;
         }
+        if (worldManager.roundStage == 2)
+        {
+            DeactivateChoosingUI();
+            choosing = false;
+        }
         if (!worldManager.allResponsesIn && !player.isReady && !choosing)
         {
             choosing = true;
@@ -91,7 +96,6 @@ public class Client : NetworkBehaviour
     public void DeactivateChoosingUI()
     {
         menuButtons.itemOptions.SetActive(false);
-        menuButtons.unPeekButton.SetActive(false);
     }
 
     public void ActivateSettingsUI()
