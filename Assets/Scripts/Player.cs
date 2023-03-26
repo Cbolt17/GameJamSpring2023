@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
 {
     public bool isReady = false;
 
+    [SerializeField]
     private int hp = 100;
-    List<Player> connections;
+    public List<Player> connections;
 
     public Player target;
     public Enums.Status status, nextStatus;
