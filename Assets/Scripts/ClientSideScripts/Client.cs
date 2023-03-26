@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using System;
+using System.Collections;
 
 public class Client : NetworkBehaviour
 {
@@ -56,12 +56,12 @@ public class Client : NetworkBehaviour
 
         if (!menuMusic && playingMenu)
         {
-            StartCoroutine(worldManager.StartFade(menuMus, 5f, 0f));
+            StartCoroutine(StartFade(menuMus, 5f, 0f));
             playingMenu = false;
         }
         else if (menuMusic && !playingMenu)
         {
-            StartCoroutine(worldManager.StartFade(menuMus, 5f, 1f));
+            StartCoroutine(StartFade(menuMus, 5f, 1f));
             playingMenu = true;
         }
     }
@@ -157,4 +157,26 @@ public class Client : NetworkBehaviour
     {
         settingsUI.SetActive(false);
     }
+
+    public IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        if (duration == 0f)
+        {
+            audioSource.Pause();
+        }
+        else
+        {
+            audioSource.Play();
+        }
+        yield break;
+    }
+
 }

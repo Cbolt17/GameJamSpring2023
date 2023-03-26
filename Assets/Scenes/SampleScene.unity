@@ -2129,7 +2129,7 @@ MonoBehaviour:
     display: Sheild
     desc: -Defends you for 2 turns\n\n\"GET BEHIND ME\"
     statusEffect: 3
-    statusDuration: 0
+    statusDuration: 2
     sprite: {fileID: 0}
   - damage: 0
     type: 1

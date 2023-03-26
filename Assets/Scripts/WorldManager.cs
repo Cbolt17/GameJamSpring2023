@@ -7,7 +7,6 @@ using UnityEngine;
 using Enums;
 using Unity.VisualScripting;
 using TMPro;
-using System;
 using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
@@ -38,8 +37,6 @@ public class WorldManager : MonoBehaviour
     public int roundStage = 0; //Round stage 0: players selecting items; round stage 1: animations
     public float animationTime = 1f;
     private float chordTimer = 2f;
-    private bool playMenu = true;
-    private bool playingMenu = false;
     //0 = menu
     public AudioSource[] sounds;
 
@@ -56,8 +53,7 @@ public class WorldManager : MonoBehaviour
 
     void Start()
     {
-        sounds[0].Play();
-        playingMenu = true;
+
     }
 
     private void Update()
@@ -80,16 +76,6 @@ public class WorldManager : MonoBehaviour
             }
             
         }
-
-        if (!playMenu && playingMenu)
-        {
-            StartCoroutine(StartFade(sounds[0], 5f, 0f));
-            playingMenu = false;
-        } else if (playMenu && !playingMenu)
-        {
-            StartCoroutine(StartFade(sounds[0], 5f, 1f));
-            playingMenu = true;
-        }
     }
 
     public void StartGame()
@@ -99,8 +85,6 @@ public class WorldManager : MonoBehaviour
         responsesRemaining = players.Count;
         responseTimeRemaining = decisionTime;
         roundStage = 1;
-
-        playMenu = false;
     }
 
     private IEnumerator StartAnimations()
@@ -108,7 +92,9 @@ public class WorldManager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             yield return StartCoroutine(takeTurn(players[i]));
+            Debug.Log("Turn: " + i);
         }
+        Debug.Log("Done turns");
         CheckForWinner();
     }
 
@@ -125,11 +111,16 @@ public class WorldManager : MonoBehaviour
             else
                 playerWithHealth = players[i];
         }
+        Debug.Log(playersRemaining);
         if (playersRemaining > 1)
-            roundStage = 0;
+        {
+            roundStage = 1;
+            responseTimeRemaining = decisionTime;
+        }
         else
             EndGame(playerWithHealth);
-            
+
+        Debug.Log("Stage: " + roundStage + ", time: " + responseTimeRemaining);
     }
 
     private void EndGame(Player winner)
@@ -143,15 +134,12 @@ public class WorldManager : MonoBehaviour
         {
             Instantiate(drawPrefab);
         }
-        playMenu = true;
         quitButton.SetActive(true);
     }
 
     public void QuitGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        StartFade(sounds[0], 3f, 1f);
-        playMenu = true;
     }
 
     /// <summary>
@@ -220,23 +208,4 @@ public class WorldManager : MonoBehaviour
         yield return new WaitForSeconds(1);
     }
 
-    public IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
-    {
-        float currentTime = 0;
-        float start = audioSource.volume;
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
-            yield return null;
-        }
-        if (duration == 0f)
-        {
-            audioSource.Pause();
-        } else
-        {
-            audioSource.Play();
-        }
-        yield break;
-    }
 }
