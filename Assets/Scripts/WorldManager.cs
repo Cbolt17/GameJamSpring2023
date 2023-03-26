@@ -34,7 +34,7 @@ public class WorldManager : MonoBehaviour
     public float decisionTime = 30f;
     public float responseTimeRemaining = 0f;
     public int maxNumPlayers = 5;
-    public int roundStage = -1; //Round stage 0: players selecting items; round stage 1: animations
+    public int roundStage = 0; //Round stage 0: players selecting items; round stage 1: animations
     public float animationTime = 1f;
     private float chordTimer = 2f;
     //0 = menu
