@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuButtons : MonoBehaviour
 {
+    public static MenuButtons instance;
+
     public WorldManager worldManager;
 
     public NetworkManager networkManager;
@@ -13,12 +16,20 @@ public class MenuButtons : MonoBehaviour
     public GameObject settingsOptions;
     public GameObject networkOptions;
     public GameObject joinOptions;
+    public GameObject itemOptions;
+    public GameObject unPeekButton;
     public MatchMaking matchMaking;
 
     public TMP_InputField textInput;
     public TextMeshProUGUI maxPlayersButtonText;
     public TextMeshProUGUI volumeButtonText;
     public TextMeshProUGUI decisionTimeText;
+
+    private void Awake()
+    {
+        if (instance != null) return;
+        instance = this;
+    }
 
     private void Start()
     {
@@ -142,6 +153,34 @@ public class MenuButtons : MonoBehaviour
                 break;
         }
         volumeButtonText.text = "Volume: " + s;
+    }
+
+    public void ToggleItems()
+    {
+        itemOptions.SetActive(false);
+        unPeekButton.SetActive(true);
+    }
+    
+    public void TogglePeek()
+    {
+        unPeekButton.SetActive(false);
+        itemOptions.SetActive(true);
+    }
+
+    public void SetPlayerItemWeapon(int itemNum)
+    {
+        Client client = FindObjectOfType<Client>();
+            client.ChooseItem(0, itemNum, 0);
+    }
+    public void SetPlayerItemDefense(int itemNum)
+    {
+        Client client = FindObjectOfType<Client>();
+        client.ChooseItem(1, itemNum, 0);
+    }
+    public void SetPlayerItemSpecial(int itemNum)
+    {
+        Client client = FindObjectOfType<Client>();
+        client.ChooseItem(2, itemNum, 0);
     }
 
     public void QuitPressed()
